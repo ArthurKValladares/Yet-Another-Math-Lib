@@ -1,5 +1,66 @@
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct Vec2 {
+    pub x: f32,
+    pub y: f32,
+}
+
+impl Vec2 {
+    pub fn new(x: f32, y: f32) -> Self {
+        Self { x, y }
+    }
+
+    pub fn magnitude(&self) -> f32 {
+        (self.x * self.x + self.y * self.y).sqrt()
+    }
+
+    pub fn distance(&self, rhs: Vec2) -> f32 {
+        (*self - rhs).magnitude()
+    }
+}
+
+impl std::ops::Add<Vec2> for Vec2 {
+    type Output = Self;
+
+    fn add(self, rhs: Vec2) -> Self::Output {
+        Self {
+            x: self.x + rhs.x,
+            y: self.y + rhs.y,
+        }
+    }
+}
+
+impl std::ops::AddAssign<Vec2> for Vec2 {
+    fn add_assign(&mut self, rhs: Vec2) {
+        self.x += rhs.x;
+        self.y += rhs.y;
+    }
+}
+
+impl std::ops::Sub<Vec2> for Vec2 {
+    type Output = Self;
+
+    fn sub(self, rhs: Vec2) -> Self::Output {
+        Self {
+            x: self.x - rhs.x,
+            y: self.y - rhs.y,
+        }
+    }
+}
+
+impl std::ops::Div<f32> for Vec2 {
+    type Output = Self;
+
+    fn div(self, rhs: f32) -> Self::Output {
+        Self {
+            x: self.x / rhs,
+            y: self.y / rhs,
+        }
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct Vec3 {
     pub x: f32,
     pub y: f32,
@@ -29,6 +90,14 @@ impl std::ops::Add<Vec3> for Vec3 {
             y: self.y + rhs.y,
             z: self.z + rhs.z,
         }
+    }
+}
+
+impl std::ops::AddAssign<Vec3> for Vec3 {
+    fn add_assign(&mut self, rhs: Vec3) {
+        self.x += rhs.x;
+        self.y += rhs.y;
+        self.z += rhs.z;
     }
 }
 
@@ -136,6 +205,17 @@ impl Mat4 {
         }
     }
 
+    pub fn from_rows_array(d: &[f32; 16]) -> Self {
+        Self {
+            d: [
+                Vec4::new(d[0], d[4], d[8], d[12]),
+                Vec4::new(d[1], d[5], d[9], d[13]),
+                Vec4::new(d[2], d[6], d[10], d[14]),
+                Vec4::new(d[3], d[7], d[11], d[15]),
+            ],
+        }
+    }
+
     pub fn col(&self, idx: usize) -> Vec4 {
         self.d[idx]
     }
@@ -154,14 +234,14 @@ impl Mat4 {
 
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub struct Quaternion {
+pub struct Quat {
     x: f32,
     y: f32,
     z: f32,
     w: f32,
 }
 
-impl Quaternion {
+impl Quat {
     pub fn from_axis_angle(axis: Vec3, angle: f32) -> Self {
         let s = (angle / 2.0).sin();
         Self {
@@ -170,5 +250,16 @@ impl Quaternion {
             z: axis.x * s,
             w: (angle / 2.0).cos(),
         }
+    }
+}
+
+pub struct Size<T> {
+    pub width: T,
+    pub height: T,
+}
+
+impl<T> Size<T> {
+    pub fn new(width: T, height: T) -> Self {
+        Self { width, height }
     }
 }
