@@ -1,5 +1,5 @@
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub struct Vec2 {
     pub x: f32,
     pub y: f32,
@@ -60,7 +60,7 @@ impl std::ops::Div<f32> for Vec2 {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub struct Vec3 {
     pub x: f32,
     pub y: f32,
@@ -126,7 +126,7 @@ impl std::ops::Div<f32> for Vec3 {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub struct Vec4 {
     pub x: f32,
     pub y: f32,
@@ -181,14 +181,14 @@ impl std::ops::Sub<Vec4> for Vec4 {
 
 #[repr(C)]
 // Column-major
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub struct Mat3 {
     n: [[f32; 3]; 3],
 }
 
 #[repr(C)]
 // Column-major
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub struct Mat4 {
     d: [Vec4; 4],
 }
@@ -233,7 +233,7 @@ impl Mat4 {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub struct Quat {
     x: f32,
     y: f32,
