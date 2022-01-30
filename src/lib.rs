@@ -81,6 +81,16 @@ impl Vec3 {
     }
 }
 
+impl From<Point2D> for Vec3 {
+    fn from(point: Point2D) -> Self {
+        Self {
+            x: point.x,
+            y: point.y,
+            z: 0.0,
+        }
+    }
+}
+
 impl std::ops::Add<Vec3> for Vec3 {
     type Output = Self;
 
@@ -307,5 +317,37 @@ impl Rect2D {
             top_left.y + size.height,
             top_left.x,
         )
+    }
+
+    pub fn top(&self) -> f32 {
+        self.top
+    }
+
+    pub fn right(&self) -> f32 {
+        self.right
+    }
+
+    pub fn bottom(&self) -> f32 {
+        self.bottom
+    }
+
+    pub fn left(&self) -> f32 {
+        self.left
+    }
+
+    pub fn top_left(&self) -> Point2D {
+        Point2D::new(self.left, self.top)
+    }
+
+    pub fn top_right(&self) -> Point2D {
+        Point2D::new(self.right, self.top)
+    }
+
+    pub fn bottom_left(&self) -> Point2D {
+        Point2D::new(self.left, self.bottom)
+    }
+
+    pub fn bottom_right(&self) -> Point2D {
+        Point2D::new(self.right, self.bottom)
     }
 }
