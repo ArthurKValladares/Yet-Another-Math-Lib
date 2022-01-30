@@ -220,6 +220,7 @@ impl Mat4 {
         self.d[idx]
     }
 
+    #[must_use]
     pub fn transpose(&self) -> Mat4 {
         Self {
             d: [
@@ -261,5 +262,60 @@ pub struct Size<T> {
 impl<T> Size<T> {
     pub fn new(width: T, height: T) -> Self {
         Self { width, height }
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone, PartialEq)]
+pub struct Point2D {
+    x: f32,
+    y: f32,
+}
+
+impl Point2D {
+    pub fn new(x: f32, y: f32) -> Self {
+        Self { x, y }
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone, PartialEq)]
+pub struct Size2D {
+    width: f32,
+    height: f32,
+}
+
+impl Size2D {
+    pub fn new(width: f32, height: f32) -> Self {
+        Self { width, height }
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone, PartialEq)]
+pub struct Rect {
+    top: f32,
+    right: f32,
+    bottom: f32,
+    left: f32,
+}
+
+impl Rect {
+    pub fn from_top_right_bottom_left(top: f32, right: f32, bottom: f32, left: f32) -> Self {
+        Self {
+            top,
+            right,
+            bottom,
+            left,
+        }
+    }
+
+    pub fn from_top_left(top_left: Point2D, size: Size2D) -> Self {
+        Self::from_top_right_bottom_left(
+            top_left.y,
+            top_left.x + size.width,
+            top_left.y + size.height,
+            top_left.x,
+        )
     }
 }
