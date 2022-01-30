@@ -1,5 +1,5 @@
 #[repr(C)]
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Vec2 {
     pub x: f32,
     pub y: f32,
@@ -60,7 +60,7 @@ impl std::ops::Div<f32> for Vec2 {
 }
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Vec3 {
     pub x: f32,
     pub y: f32,
@@ -126,7 +126,7 @@ impl std::ops::Div<f32> for Vec3 {
 }
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Vec4 {
     pub x: f32,
     pub y: f32,
@@ -181,14 +181,15 @@ impl std::ops::Sub<Vec4> for Vec4 {
 
 #[repr(C)]
 // Column-major
-#[derive(Debug, Copy, Clone, PartialEq)]
+// TODO: Use Vec3
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Mat3 {
     n: [[f32; 3]; 3],
 }
 
 #[repr(C)]
 // Column-major
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Mat4 {
     d: [Vec4; 4],
 }
@@ -255,7 +256,7 @@ impl Quat {
 }
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Point2D {
     x: f32,
     y: f32,
@@ -268,7 +269,7 @@ impl Point2D {
 }
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Size2D {
     width: f32,
     height: f32,
@@ -281,7 +282,7 @@ impl Size2D {
 }
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Rect2D {
     top: f32,
     right: f32,
