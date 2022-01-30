@@ -293,14 +293,14 @@ impl Size2D {
 
 #[repr(C)]
 #[derive(Copy, Clone, PartialEq)]
-pub struct Rect {
+pub struct Rect2D {
     top: f32,
     right: f32,
     bottom: f32,
     left: f32,
 }
 
-impl Rect {
+impl Rect2D {
     pub fn from_top_right_bottom_left(top: f32, right: f32, bottom: f32, left: f32) -> Self {
         Self {
             top,
