@@ -91,6 +91,16 @@ impl From<Point2D> for Vec3 {
     }
 }
 
+impl From<Point3D> for Vec3 {
+    fn from(point: Point3D) -> Self {
+        Self {
+            x: point.x,
+            y: point.y,
+            z: point.z,
+        }
+    }
+}
+
 impl std::ops::Add<Vec3> for Vec3 {
     type Output = Self;
 
@@ -401,5 +411,21 @@ impl Rect3D {
             top_left.x,
             top_left.z,
         )
+    }
+
+    pub fn top_left(&self) -> Point3D {
+        Point3D::new(self.left, self.top, self.depth)
+    }
+
+    pub fn top_right(&self) -> Point3D {
+        Point3D::new(self.right, self.top, self.depth)
+    }
+
+    pub fn bottom_left(&self) -> Point3D {
+        Point3D::new(self.left, self.bottom, self.depth)
+    }
+
+    pub fn bottom_right(&self) -> Point3D {
+        Point3D::new(self.right, self.bottom, self.depth)
     }
 }
