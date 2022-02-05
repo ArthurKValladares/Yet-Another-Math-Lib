@@ -280,6 +280,20 @@ impl Point2D {
 
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct Point3D {
+    x: f32,
+    y: f32,
+    z: f32,
+}
+
+impl Point3D {
+    pub fn new(x: f32, y: f32, z: f32) -> Self {
+        Self { x, y, z }
+    }
+}
+
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Size2D {
     width: f32,
     height: f32,
@@ -349,5 +363,43 @@ impl Rect2D {
 
     pub fn bottom_right(&self) -> Point2D {
         Point2D::new(self.right, self.bottom)
+    }
+}
+
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct Rect3D {
+    top: f32,
+    right: f32,
+    bottom: f32,
+    left: f32,
+    depth: f32,
+}
+
+impl Rect3D {
+    pub fn from_top_right_bottom_left_depth(
+        top: f32,
+        right: f32,
+        bottom: f32,
+        left: f32,
+        depth: f32,
+    ) -> Self {
+        Self {
+            top,
+            right,
+            bottom,
+            left,
+            depth,
+        }
+    }
+
+    pub fn from_top_left(top_left: Point3D, size: Size2D) -> Self {
+        Self::from_top_right_bottom_left_depth(
+            top_left.y,
+            top_left.x + size.width,
+            top_left.y + size.height,
+            top_left.x,
+            top_left.z,
+        )
     }
 }
