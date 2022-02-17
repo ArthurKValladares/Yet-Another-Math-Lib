@@ -305,8 +305,8 @@ impl Point3D {
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Size2D {
-    width: f32,
-    height: f32,
+    pub width: f32,
+    pub height: f32,
 }
 
 impl Size2D {
