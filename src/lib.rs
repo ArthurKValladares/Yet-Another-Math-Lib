@@ -239,7 +239,7 @@ impl Mat4 {
         }
     }
 
-    pub fn identity(&self) -> Mat4 {
+    pub fn identity() -> Mat4 {
         Self::from_rows_array(&[
             1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
         ])
