@@ -208,53 +208,39 @@ pub struct Mat3 {
 }
 
 #[repr(C)]
-// Column-major
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
+#[rustfmt::skip]
 pub struct Mat4 {
-    d: [Vec4; 4],
+    m00: f32, m01: f32, m02: f32, m03: f32,
+    m10: f32, m11: f32, m12: f32, m13: f32,
+    m20: f32, m21: f32, m22: f32, m23: f32,
+    m30: f32, m31: f32, m32: f32, m33: f32,
 }
 
 impl Mat4 {
-    pub fn from_cols_array(d: &[f32; 16]) -> Self {
-        Self {
-            d: [
-                Vec4::new(d[0], d[1], d[2], d[3]),
-                Vec4::new(d[4], d[5], d[6], d[7]),
-                Vec4::new(d[8], d[9], d[10], d[11]),
-                Vec4::new(d[12], d[13], d[14], d[15]),
-            ],
-        }
-    }
-
     pub fn from_rows_array(d: &[f32; 16]) -> Self {
         Self {
-            d: [
-                Vec4::new(d[0], d[4], d[8], d[12]),
-                Vec4::new(d[1], d[5], d[9], d[13]),
-                Vec4::new(d[2], d[6], d[10], d[14]),
-                Vec4::new(d[3], d[7], d[11], d[15]),
-            ],
-        }
-    }
-
-    pub fn col(&self, idx: usize) -> Vec4 {
-        self.d[idx]
-    }
-
-    #[must_use]
-    pub fn transpose(&self) -> Mat4 {
-        Self {
-            d: [
-                Vec4::new(self.d[0].x, self.d[1].x, self.d[2].x, self.d[3].x),
-                Vec4::new(self.d[0].y, self.d[1].y, self.d[2].y, self.d[3].y),
-                Vec4::new(self.d[0].z, self.d[1].z, self.d[2].z, self.d[3].z),
-                Vec4::new(self.d[0].w, self.d[1].w, self.d[2].w, self.d[3].w),
-            ],
+            m00: d[0],
+            m01: d[1],
+            m02: d[2],
+            m03: d[3],
+            m10: d[4],
+            m11: d[5],
+            m12: d[6],
+            m13: d[7],
+            m20: d[8],
+            m21: d[9],
+            m22: d[10],
+            m23: d[11],
+            m30: d[12],
+            m31: d[13],
+            m32: d[14],
+            m33: d[15],
         }
     }
 
     pub fn identity(&self) -> Mat4 {
-        Self::from_cols_array(&[
+        Self::from_rows_array(&[
             1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
         ])
     }
