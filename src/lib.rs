@@ -10,6 +10,10 @@ impl Vec2 {
         Self { x, y }
     }
 
+    pub fn zero() -> Self {
+        Self::new(0.0, 0.0)
+    }
+
     pub fn magnitude(&self) -> f32 {
         (self.x * self.x + self.y * self.y).sqrt()
     }
