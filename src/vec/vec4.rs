@@ -87,6 +87,12 @@ impl std::ops::Sub<Vec4> for Vec4 {
     }
 }
 
+impl From<[f32; 4]> for Vec4 {
+    fn from(data: [f32; 4]) -> Self {
+        Self { data }
+    }
+}
+
 impl From<Vec4> for [f32; 4] {
     fn from(vec: Vec4) -> Self {
         vec.data

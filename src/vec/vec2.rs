@@ -38,6 +38,18 @@ impl Vec2 {
     }
 }
 
+impl From<[f32; 2]> for Vec2 {
+    fn from(data: [f32; 2]) -> Self {
+        Self { data }
+    }
+}
+
+impl From<Vec2> for [f32; 2] {
+    fn from(vec: Vec2) -> Self {
+        vec.data
+    }
+}
+
 impl std::ops::Add<Vec2> for Vec2 {
     type Output = Self;
 

@@ -44,6 +44,18 @@ impl Vec3 {
     }
 }
 
+impl From<[f32; 3]> for Vec3 {
+    fn from(data: [f32; 3]) -> Self {
+        Self { data }
+    }
+}
+
+impl From<Vec3> for [f32; 3] {
+    fn from(vec: Vec3) -> Self {
+        vec.data
+    }
+}
+
 impl From<Point2D> for Vec3 {
     fn from(point: Point2D) -> Self {
         Self {
