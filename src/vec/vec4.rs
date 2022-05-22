@@ -1,3 +1,5 @@
+use super::{Vec2, Vec3};
+
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Vec4 {
@@ -96,5 +98,21 @@ impl From<[f32; 4]> for Vec4 {
 impl From<Vec4> for [f32; 4] {
     fn from(vec: Vec4) -> Self {
         vec.data
+    }
+}
+
+impl From<Vec2> for Vec4 {
+    fn from(vec: Vec2) -> Self {
+        Self {
+            data: [vec.x(), vec.y(), 0.0, 0.0],
+        }
+    }
+}
+
+impl From<Vec3> for Vec4 {
+    fn from(vec: Vec3) -> Self {
+        Self {
+            data: [vec.x(), vec.y(), vec.z(), 0.0],
+        }
     }
 }

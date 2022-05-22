@@ -1,5 +1,7 @@
 use crate::point::{Point2D, Point3D};
 
+use super::Vec2;
+
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Vec3 {
@@ -53,6 +55,14 @@ impl From<[f32; 3]> for Vec3 {
 impl From<Vec3> for [f32; 3] {
     fn from(vec: Vec3) -> Self {
         vec.data
+    }
+}
+
+impl From<Vec2> for Vec3 {
+    fn from(vec: Vec2) -> Self {
+        Self {
+            data: [vec.x(), vec.y(), 0.0],
+        }
     }
 }
 
