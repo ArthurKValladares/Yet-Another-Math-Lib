@@ -112,7 +112,7 @@ impl From<Vec2> for Vec4 {
 impl From<Vec3> for Vec4 {
     fn from(vec: Vec3) -> Self {
         Self {
-            data: [vec.x(), vec.y(), vec.z(), 0.0],
+            data: [vec.x(), vec.y(), vec.z(), 1.0],
         }
     }
 }
