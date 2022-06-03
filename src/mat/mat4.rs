@@ -19,36 +19,32 @@ impl Mat4 {
     }
 
     pub fn rotate(angle: f32, axis: Vec3) -> Self {
-        let sin_t = angle.sin();
-        let cos_t = angle.cos();
+        let s = angle.sin();
+        let c = angle.cos();
+        let d = 1.0 - c;
 
-        let x = axis.x();
-        let y = axis.y();
-        let z = axis.z();
+        let x = axis.x() * d;
+        let y = axis.y() * d;
+        let z = axis.z() * d;
 
-        let xx = axis.x() * axis.x();
-        let yy = axis.y() * axis.y();
-        let zz = axis.z() * axis.z();
-
-        let xy = axis.x() * axis.y();
-        let xz = axis.x() * axis.z();
-        let yz = axis.y() * axis.z();
+        let axay = x * axis.y();
+        let axaz = x * axis.z();
+        let ayaz = y * axis.z();
 
         Self::from_rows_array([
-            //
-            cos_t + xx * (1.0 - cos_t),
-            xy * (1.0 - cos_t) - z * sin_t,
-            xz * (1.0 - cos_t) + y * sin_t,
+            c + x * axis.x(),
+            axay - s * axis.z(),
+            axaz + s * axis.y(),
             0.0,
             //
-            xy * (1.0 - cos_t) + z * sin_t,
-            cos_t + yy * (1.0 - cos_t),
-            yz * (1.0 - cos_t) - x * sin_t,
+            axay + s * axis.z(),
+            c + y * axis.y(),
+            ayaz - s * axis.x(),
             0.0,
             //
-            xz * (1.0 - cos_t) - y * sin_t,
-            yz * (1.0 - cos_t) + x * sin_t,
-            cos_t + zz * (1.0 - cos_t),
+            axaz - s * axis.y(),
+            ayaz + s * axis.x(),
+            c + z * axis.z(),
             0.0,
             //
             0.0,
