@@ -18,33 +18,33 @@ impl Mat4 {
         ])
     }
 
-    pub fn rotate(angle: f32, axis: Vec3) -> Self {
-        let s = angle.sin();
-        let c = angle.cos();
+    pub fn rotate(t: f32, a: Vec3) -> Self {
+        let s = t.sin();
+        let c = t.cos();
         let d = 1.0 - c;
 
-        let x = axis.x() * d;
-        let y = axis.y() * d;
-        let z = axis.z() * d;
+        let x = a.x() * d;
+        let y = a.y() * d;
+        let z = a.z() * d;
 
-        let axay = x * axis.y();
-        let axaz = x * axis.z();
-        let ayaz = y * axis.z();
+        let axay = x * a.y();
+        let axaz = x * a.z();
+        let ayaz = y * a.z();
 
         Self::from_rows_array([
-            c + x * axis.x(),
-            axay - s * axis.z(),
-            axaz + s * axis.y(),
+            c + x * a.x(),
+            axay + s * a.z(),
+            axaz - s * a.y(),
             0.0,
             //
-            axay + s * axis.z(),
-            c + y * axis.y(),
-            ayaz - s * axis.x(),
+            axay - s * a.z(),
+            c + y * a.y(),
+            ayaz + s * a.x(),
             0.0,
             //
-            axaz - s * axis.y(),
-            ayaz + s * axis.x(),
-            c + z * axis.z(),
+            axaz + s * a.y(),
+            ayaz - s * a.x(),
+            c + z * a.z(),
             0.0,
             //
             0.0,
