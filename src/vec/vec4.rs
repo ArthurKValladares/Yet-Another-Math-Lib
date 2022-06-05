@@ -42,6 +42,18 @@ impl Vec4 {
     pub fn a(&self) -> f32 {
         self.data[3]
     }
+
+    pub fn magnitude(&self) -> f32 {
+        (self.x() * self.x() + self.y() * self.y() + self.z() * self.z() + self.w() * self.w()).sqrt()
+    }
+
+    pub fn distance(&self, rhs: Self) -> f32 {
+        (*self - rhs).magnitude()
+    }
+
+    pub fn dot(&self, rhs: &Self) -> f32 {
+        self.x() * rhs.x() + self.y() * rhs.y() + self.z() * rhs.z() + self.w() * rhs.w()
+    }
 }
 
 impl std::ops::Div<f32> for Vec4 {

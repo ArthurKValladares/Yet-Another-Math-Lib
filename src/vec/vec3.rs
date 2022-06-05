@@ -41,8 +41,12 @@ impl Vec3 {
         (self.x() * self.x() + self.y() * self.y() + self.z() * self.z()).sqrt()
     }
 
-    pub fn distance(&self, rhs: Vec3) -> f32 {
+    pub fn distance(&self, rhs: Self) -> f32 {
         (*self - rhs).magnitude()
+    }
+
+    pub fn dot(&self, rhs: &Self) -> f32 {
+        self.x() * rhs.x() + self.y() * rhs.y() + self.z() * rhs.z()
     }
 }
 

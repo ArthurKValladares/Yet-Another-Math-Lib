@@ -33,8 +33,12 @@ impl Vec2 {
         (self.x() * self.x() + self.y() * self.y()).sqrt()
     }
 
-    pub fn distance(&self, rhs: Vec2) -> f32 {
+    pub fn distance(&self, rhs: Self) -> f32 {
         (*self - rhs).magnitude()
+    }
+
+    pub fn dot(&self, rhs: &Self) -> f32 {
+        self.x() * rhs.x() + self.y() * rhs.y()
     }
 }
 
