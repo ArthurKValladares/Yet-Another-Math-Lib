@@ -139,11 +139,7 @@ impl std::ops::Mul<f32> for Vec3 {
 
     fn mul(self, rhs: f32) -> Self::Output {
         Self {
-            data: [
-                self.x() * rhs,
-                self.y() * rhs,
-                self.z() * rhs,
-            ],
+            data: [self.x() * rhs, self.y() * rhs, self.z() * rhs],
         }
     }
 }

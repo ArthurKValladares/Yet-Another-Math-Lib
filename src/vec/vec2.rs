@@ -94,10 +94,7 @@ impl std::ops::Mul<f32> for Vec2 {
 
     fn mul(self, rhs: f32) -> Self::Output {
         Self {
-            data: [
-                self.x() * rhs,
-                self.y() * rhs,
-            ],
+            data: [self.x() * rhs, self.y() * rhs],
         }
     }
 }
