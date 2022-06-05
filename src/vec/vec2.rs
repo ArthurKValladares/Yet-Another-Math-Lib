@@ -33,6 +33,10 @@ impl Vec2 {
         (self.x() * self.x() + self.y() * self.y()).sqrt()
     }
 
+    pub fn normalized(&self) -> Self {
+        *self / self.magnitude()
+    }
+
     pub fn distance(&self, rhs: Self) -> f32 {
         (*self - rhs).magnitude()
     }

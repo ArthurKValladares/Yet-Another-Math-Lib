@@ -47,6 +47,10 @@ impl Vec4 {
         (self.x() * self.x() + self.y() * self.y() + self.z() * self.z() + self.w() * self.w()).sqrt()
     }
 
+    pub fn normalized(&self) -> Self {
+        *self / self.magnitude()
+    }
+    
     pub fn distance(&self, rhs: Self) -> f32 {
         (*self - rhs).magnitude()
     }
