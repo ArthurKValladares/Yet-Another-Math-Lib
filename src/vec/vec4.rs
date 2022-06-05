@@ -43,6 +43,14 @@ impl Vec4 {
         self.data[3]
     }
 
+    pub fn zero() -> Self {
+        Self::new(0.0, 0.0, 0.0, 0.0)
+    }
+
+    pub fn negate(&self) -> Self {
+        *self * -1.0
+    }
+
     pub fn magnitude(&self) -> f32 {
         (self.x() * self.x() + self.y() * self.y() + self.z() * self.z() + self.w() * self.w())
             .sqrt()
@@ -58,6 +66,21 @@ impl Vec4 {
 
     pub fn dot(&self, rhs: &Self) -> f32 {
         self.x() * rhs.x() + self.y() * rhs.y() + self.z() * rhs.z() + self.w() * rhs.w()
+    }
+}
+
+impl std::ops::Mul<f32> for Vec4 {
+    type Output = Self;
+
+    fn mul(self, rhs: f32) -> Self::Output {
+        Self {
+            data: [
+                self.x() * rhs,
+                self.y() * rhs,
+                self.z() * rhs,
+                self.w() * rhs,
+            ],
+        }
     }
 }
 

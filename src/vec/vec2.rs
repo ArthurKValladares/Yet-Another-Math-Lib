@@ -29,6 +29,10 @@ impl Vec2 {
         Self::new(0.0, 0.0)
     }
 
+    pub fn negate(&self) -> Self {
+        *self * -1.0
+    }
+
     pub fn magnitude(&self) -> f32 {
         (self.x() * self.x() + self.y() * self.y()).sqrt()
     }
@@ -81,6 +85,19 @@ impl std::ops::Sub<Vec2> for Vec2 {
     fn sub(self, rhs: Vec2) -> Self::Output {
         Self {
             data: [self.x() - rhs.x(), self.y() - rhs.y()],
+        }
+    }
+}
+
+impl std::ops::Mul<f32> for Vec2 {
+    type Output = Self;
+
+    fn mul(self, rhs: f32) -> Self::Output {
+        Self {
+            data: [
+                self.x() * rhs,
+                self.y() * rhs,
+            ],
         }
     }
 }
