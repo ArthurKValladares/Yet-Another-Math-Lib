@@ -79,6 +79,13 @@ impl std::ops::AddAssign<Vec2> for Vec2 {
     }
 }
 
+impl std::ops::SubAssign<Vec2> for Vec2 {
+    fn sub_assign(&mut self, rhs: Vec2) {
+        self.data[0] -= rhs.data[0];
+        self.data[1] -= rhs.data[1];
+    }
+}
+
 impl std::ops::Sub<Vec2> for Vec2 {
     type Output = Self;
 

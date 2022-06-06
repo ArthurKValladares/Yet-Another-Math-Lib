@@ -129,6 +129,24 @@ impl std::ops::Sub<Vec4> for Vec4 {
     }
 }
 
+impl std::ops::AddAssign<Vec4> for Vec4 {
+    fn add_assign(&mut self, rhs: Vec4) {
+        self.data[0] += rhs.data[0];
+        self.data[1] += rhs.data[1];
+        self.data[2] += rhs.data[2];
+        self.data[3] += rhs.data[3];
+    }
+}
+
+impl std::ops::SubAssign<Vec4> for Vec4 {
+    fn sub_assign(&mut self, rhs: Vec4) {
+        self.data[0] -= rhs.data[0];
+        self.data[1] -= rhs.data[1];
+        self.data[2] -= rhs.data[2];
+        self.data[3] -= rhs.data[3];
+    }
+}
+
 impl From<[f32; 4]> for Vec4 {
     fn from(data: [f32; 4]) -> Self {
         Self { data }
