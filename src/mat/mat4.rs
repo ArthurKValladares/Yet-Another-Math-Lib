@@ -57,7 +57,7 @@ impl Mat4 {
 
         Self::from_data(
             c + x * a.x(),
-            axay - s + a.z(),
+            axay - s * a.z(),
             axaz + s * a.y(),
             0.0,
             axay + s * a.z(),
