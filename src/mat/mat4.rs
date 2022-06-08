@@ -28,10 +28,10 @@ impl Mat4 {
     ) -> Self {
         Self {
             data: [
-                Vec4::new(n00, n10, n20, n30),
-                Vec4::new(n01, n11, n21, n31),
-                Vec4::new(n02, n12, n22, n32),
-                Vec4::new(n03, n13, n23, n33),
+                Vec4::new(n00, n01, n02, n03),
+                Vec4::new(n10, n11, n12, n13),
+                Vec4::new(n20, n21, n22, n23),
+                Vec4::new(n30, n31, n32, n33),
             ],
         }
     }
