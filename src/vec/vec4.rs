@@ -51,9 +51,12 @@ impl Vec4 {
         *self * -1.0
     }
 
+    pub fn magnitude_squared(&self) -> f32 {
+        self.x() * self.x() + self.y() * self.y() + self.z() * self.z() + self.w() * self.w()
+    }
+
     pub fn magnitude(&self) -> f32 {
-        (self.x() * self.x() + self.y() * self.y() + self.z() * self.z() + self.w() * self.w())
-            .sqrt()
+        self.magnitude_squared().sqrt()
     }
 
     pub fn normalized(&self) -> Self {

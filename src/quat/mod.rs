@@ -19,4 +19,10 @@ impl Quat {
             w: (angle / 2.0).cos(),
         }
     }
+
+    pub fn rotate(&self, vec: Vec3) -> Vec3 {
+        let b = Vec3::new(self.x, self.y, self.z);
+        let b2 = b.magnitude_squared();
+        vec * (self.w * self.w - b2) + b * (vec.dot(&b) * 2.0) + b.cross(&vec) * (self.w * 2.0)
+    }
 }

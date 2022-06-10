@@ -33,8 +33,12 @@ impl Vec2 {
         *self * -1.0
     }
 
+    pub fn magnitude_squared(&self) -> f32 {
+        self.x() * self.x() + self.y() * self.y()
+    }
+
     pub fn magnitude(&self) -> f32 {
-        (self.x() * self.x() + self.y() * self.y()).sqrt()
+        self.magnitude_squared().sqrt()
     }
 
     pub fn normalized(&self) -> Self {
