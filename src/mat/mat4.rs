@@ -42,6 +42,14 @@ impl Mat4 {
         )
     }
 
+    pub fn row(&self, idx: usize) -> Vec4 {
+        self.data[idx]
+    }
+
+    pub fn col(&self, idx: usize) -> Vec4 {
+        Vec4::new(self.data[0].idx(idx), self.data[1].idx(idx), self.data[2].idx(idx), self.data[3].idx(idx))
+    }
+
     pub fn rotate_x(t: f32) -> Self {
         let c = t.cos();
         let s = t.sin();
@@ -100,5 +108,20 @@ impl Mat4 {
             0.0,
             1.0,
         )
+    }
+}
+
+impl std::ops::Mul<Mat4> for Mat4 {
+    type Output = Self;
+
+    fn mul(self, rhs: Mat4) -> Self::Output {
+        Self {
+            data: [
+                Vec4::new(self.data[0].dot(&rhs.col(0)), self.data[0].dot(&rhs.col(1)), self.data[0].dot(&rhs.col(2)), self.data[0].dot(&rhs.col(3))),
+                Vec4::new(self.data[1].dot(&rhs.col(0)), self.data[1].dot(&rhs.col(1)), self.data[1].dot(&rhs.col(2)), self.data[1].dot(&rhs.col(3))),
+                Vec4::new(self.data[2].dot(&rhs.col(0)), self.data[2].dot(&rhs.col(1)), self.data[2].dot(&rhs.col(2)), self.data[2].dot(&rhs.col(3))),
+                Vec4::new(self.data[3].dot(&rhs.col(0)), self.data[3].dot(&rhs.col(1)), self.data[3].dot(&rhs.col(2)), self.data[3].dot(&rhs.col(3))),
+            ],
+        }
     }
 }

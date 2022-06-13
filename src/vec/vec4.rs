@@ -11,6 +11,10 @@ impl Vec4 {
         Self { data: [x, y, z, w] }
     }
 
+    pub fn idx(&self, idx: usize) -> f32 {
+        self.data[idx]
+    }
+
     pub fn x(&self) -> f32 {
         self.data[0]
     }
