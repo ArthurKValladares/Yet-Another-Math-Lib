@@ -42,6 +42,33 @@ impl Mat4 {
         )
     }
 
+    pub fn rotate_x(t: f32) -> Self {
+        let c = t.cos();
+        let s = t.sin();
+
+        Self::from_data(
+            1.0, 0.0, 0.0, 0.0, 0.0, c, -s, 0.0, 0.0, s, c, 0.0, 0.0, 0.0, 0.0, 1.0,
+        )
+    }
+
+    pub fn rotate_y(t: f32, a: Vec3) -> Self {
+        let c = t.cos();
+        let s = t.sin();
+
+        Self::from_data(
+            c, 0.0, s, 0.0, 0.0, 1, 0.0, 0.0, -s, 0.0, c, 0.0, 0.0, 0.0, 0.0, 1.0,
+        )
+    }
+
+    pub fn rotate_z(t: f32, a: Vec3) -> Self {
+        let c = t.cos();
+        let s = t.sin();
+
+        Self::from_data(
+            c, -s, 0.0, 0.0, s, c, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+        )
+    }
+
     pub fn rotate(t: f32, a: Vec3) -> Self {
         let s = t.sin();
         let c = t.cos();
