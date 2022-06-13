@@ -59,7 +59,7 @@ impl Mat4 {
         )
     }
 
-    pub fn rotate_y(t: f32, a: Vec3) -> Self {
+    pub fn rotate_y(t: f32) -> Self {
         let c = t.cos();
         let s = t.sin();
 
@@ -68,7 +68,7 @@ impl Mat4 {
         )
     }
 
-    pub fn rotate_z(t: f32, a: Vec3) -> Self {
+    pub fn rotate_z(t: f32) -> Self {
         let c = t.cos();
         let s = t.sin();
 
