@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use crate::{
     quat::Quat,
     vec::{Vec3, Vec4},
@@ -238,5 +240,16 @@ impl From<[[f32; 4]; 4]> for Mat4 {
                 data[3].into(),
             ],
         }
+    }
+}
+
+impl Display for Mat4 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "[")?;
+        writeln!(f, "\t{}, {}, {}, {}", self.data[0].x(), self.data[0].y(), self.data[0].z(), self.data[0].w())?;
+        writeln!(f, "\t{}, {}, {}, {}", self.data[1].x(), self.data[1].y(), self.data[1].z(), self.data[1].w())?;
+        writeln!(f, "\t{}, {}, {}, {}", self.data[2].x(), self.data[2].y(), self.data[2].z(), self.data[2].w())?;
+        writeln!(f, "\t{}, {}, {}, {}", self.data[3].x(), self.data[3].y(), self.data[3].z(), self.data[3].w())?;
+        writeln!(f, "]")
     }
 }
