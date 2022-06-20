@@ -175,17 +175,17 @@ impl Mat4 {
 
     pub fn translate(vec: Vec3) -> Self {
         Self::from_data(
-            0.0,
+            1.0,
             0.0,
             0.0,
             vec.x(),
             0.0,
-            0.0,
+            1.0,
             0.0,
             vec.y(),
             0.0,
             0.0,
-            0.0,
+            1.0,
             vec.z(),
             0.0,
             0.0,
