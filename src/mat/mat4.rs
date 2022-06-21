@@ -60,6 +60,12 @@ impl Mat4 {
         )
     }
 
+    pub fn transposed(self) -> Self {
+        Self {
+            data: [self.col(0), self.col(1), self.col(2), self.col(3)],
+        }
+    }
+
     pub fn rotate_x(t: f32) -> Self {
         let c = t.cos();
         let s = t.sin();
@@ -246,10 +252,38 @@ impl From<[[f32; 4]; 4]> for Mat4 {
 impl Display for Mat4 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         writeln!(f, "[")?;
-        writeln!(f, "\t{}, {}, {}, {}", self.data[0].x(), self.data[0].y(), self.data[0].z(), self.data[0].w())?;
-        writeln!(f, "\t{}, {}, {}, {}", self.data[1].x(), self.data[1].y(), self.data[1].z(), self.data[1].w())?;
-        writeln!(f, "\t{}, {}, {}, {}", self.data[2].x(), self.data[2].y(), self.data[2].z(), self.data[2].w())?;
-        writeln!(f, "\t{}, {}, {}, {}", self.data[3].x(), self.data[3].y(), self.data[3].z(), self.data[3].w())?;
+        writeln!(
+            f,
+            "\t{}, {}, {}, {}",
+            self.data[0].x(),
+            self.data[0].y(),
+            self.data[0].z(),
+            self.data[0].w()
+        )?;
+        writeln!(
+            f,
+            "\t{}, {}, {}, {}",
+            self.data[1].x(),
+            self.data[1].y(),
+            self.data[1].z(),
+            self.data[1].w()
+        )?;
+        writeln!(
+            f,
+            "\t{}, {}, {}, {}",
+            self.data[2].x(),
+            self.data[2].y(),
+            self.data[2].z(),
+            self.data[2].w()
+        )?;
+        writeln!(
+            f,
+            "\t{}, {}, {}, {}",
+            self.data[3].x(),
+            self.data[3].y(),
+            self.data[3].z(),
+            self.data[3].w()
+        )?;
         writeln!(f, "]")
     }
 }
