@@ -5,9 +5,9 @@ use crate::{
     vec::{Vec3, Vec4},
 };
 
+/// Column-major
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
-#[rustfmt::skip]
 pub struct Mat4 {
     data: [Vec4; 4],
 }
@@ -33,21 +33,10 @@ impl Mat4 {
     ) -> Self {
         Self {
             data: [
-                Vec4::new(n00, n01, n02, n03),
-                Vec4::new(n10, n11, n12, n13),
-                Vec4::new(n20, n21, n22, n23),
-                Vec4::new(n30, n31, n32, n33),
-            ],
-        }
-    }
-
-    pub fn from_column_major(data: [[f32; 4]; 4]) -> Self {
-        Self {
-            data: [
-                Vec4::new(data[0][0], data[1][0], data[2][0], data[3][0]),
-                Vec4::new(data[0][1], data[1][1], data[2][1], data[3][1]),
-                Vec4::new(data[0][2], data[1][2], data[2][2], data[3][2]),
-                Vec4::new(data[0][3], data[1][3], data[2][3], data[3][3]),
+                Vec4::new(n00, n10, n20, n30),
+                Vec4::new(n01, n11, n21, n31),
+                Vec4::new(n02, n12, n22, n32),
+                Vec4::new(n03, n13, n23, n33),
             ],
         }
     }
@@ -59,10 +48,6 @@ impl Mat4 {
     }
 
     pub fn row(&self, idx: usize) -> Vec4 {
-        self.data[idx]
-    }
-
-    pub fn col(&self, idx: usize) -> Vec4 {
         Vec4::new(
             self.data[0].idx(idx),
             self.data[1].idx(idx),
@@ -71,9 +56,13 @@ impl Mat4 {
         )
     }
 
+    pub fn col(&self, idx: usize) -> Vec4 {
+        self.data[idx]
+    }
+
     pub fn transposed(self) -> Self {
         Self {
-            data: [self.col(0), self.col(1), self.col(2), self.col(3)],
+            data: [self.row(0), self.row(1), self.row(2), self.row(3)],
         }
     }
 
@@ -216,31 +205,35 @@ impl std::ops::Mul<Mat4> for Mat4 {
     type Output = Self;
 
     fn mul(self, rhs: Mat4) -> Self::Output {
+        let row_0 = self.row(0);
+        let row_1 = self.row(1);
+        let row_2 = self.row(2);
+        let row_3 = self.row(3);
         Self {
             data: [
                 Vec4::new(
-                    self.data[0].dot(&rhs.col(0)),
-                    self.data[0].dot(&rhs.col(1)),
-                    self.data[0].dot(&rhs.col(2)),
-                    self.data[0].dot(&rhs.col(3)),
+                    row_0.dot(&rhs.col(0)),
+                    row_0.dot(&rhs.col(1)),
+                    row_0.dot(&rhs.col(2)),
+                    row_0.dot(&rhs.col(3)),
                 ),
                 Vec4::new(
-                    self.data[1].dot(&rhs.col(0)),
-                    self.data[1].dot(&rhs.col(1)),
-                    self.data[1].dot(&rhs.col(2)),
-                    self.data[1].dot(&rhs.col(3)),
+                    row_1.dot(&rhs.col(0)),
+                    row_1.dot(&rhs.col(1)),
+                    row_1.dot(&rhs.col(2)),
+                    row_1.dot(&rhs.col(3)),
                 ),
                 Vec4::new(
-                    self.data[2].dot(&rhs.col(0)),
-                    self.data[2].dot(&rhs.col(1)),
-                    self.data[2].dot(&rhs.col(2)),
-                    self.data[2].dot(&rhs.col(3)),
+                    row_2.dot(&rhs.col(0)),
+                    row_2.dot(&rhs.col(1)),
+                    row_2.dot(&rhs.col(2)),
+                    row_2.dot(&rhs.col(3)),
                 ),
                 Vec4::new(
-                    self.data[3].dot(&rhs.col(0)),
-                    self.data[3].dot(&rhs.col(1)),
-                    self.data[3].dot(&rhs.col(2)),
-                    self.data[3].dot(&rhs.col(3)),
+                    row_3.dot(&rhs.col(0)),
+                    row_3.dot(&rhs.col(1)),
+                    row_3.dot(&rhs.col(2)),
+                    row_3.dot(&rhs.col(3)),
                 ),
             ],
         }
@@ -262,38 +255,42 @@ impl From<[[f32; 4]; 4]> for Mat4 {
 
 impl Display for Mat4 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let row_0 = self.row(0);
+        let row_1 = self.row(1);
+        let row_2 = self.row(2);
+        let row_3 = self.row(3);
         writeln!(f, "[")?;
         writeln!(
             f,
             "\t{}, {}, {}, {}",
-            self.data[0].x(),
-            self.data[0].y(),
-            self.data[0].z(),
-            self.data[0].w()
+            row_0.x(),
+            row_0.y(),
+            row_0.z(),
+            row_0.w()
         )?;
         writeln!(
             f,
             "\t{}, {}, {}, {}",
-            self.data[1].x(),
-            self.data[1].y(),
-            self.data[1].z(),
-            self.data[1].w()
+            row_1.x(),
+            row_1.y(),
+            row_1.z(),
+            row_1.w()
         )?;
         writeln!(
             f,
             "\t{}, {}, {}, {}",
-            self.data[2].x(),
-            self.data[2].y(),
-            self.data[2].z(),
-            self.data[2].w()
+            row_2.x(),
+            row_2.y(),
+            row_2.z(),
+            row_2.w()
         )?;
         writeln!(
             f,
             "\t{}, {}, {}, {}",
-            self.data[3].x(),
-            self.data[3].y(),
-            self.data[3].z(),
-            self.data[3].w()
+            row_3.x(),
+            row_3.y(),
+            row_3.z(),
+            row_3.w()
         )?;
         writeln!(f, "]")
     }
