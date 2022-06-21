@@ -41,9 +41,13 @@ impl Mat4 {
         }
     }
 
+    #[rustfmt::skip]
     pub fn identity() -> Mat4 {
         Self::from_data(
-            1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+            1.0, 0.0, 0.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            0.0, 0.0, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0,
         )
     }
 
@@ -66,33 +70,46 @@ impl Mat4 {
         }
     }
 
+    #[rustfmt::skip]
     pub fn rotate_x(t: f32) -> Self {
         let c = t.cos();
         let s = t.sin();
 
         Self::from_data(
-            1.0, 0.0, 0.0, 0.0, 0.0, c, -s, 0.0, 0.0, s, c, 0.0, 0.0, 0.0, 0.0, 1.0,
+            1.0, 0.0, 0.0, 0.0,
+            0.0, c, -s, 0.0,
+            0.0, s, c, 0.0,
+            0.0, 0.0, 0.0, 1.0,
         )
     }
 
+    #[rustfmt::skip]
     pub fn rotate_y(t: f32) -> Self {
         let c = t.cos();
         let s = t.sin();
 
         Self::from_data(
-            c, 0.0, s, 0.0, 0.0, 1.0, 0.0, 0.0, -s, 0.0, c, 0.0, 0.0, 0.0, 0.0, 1.0,
+            c, 0.0, s, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            -s, 0.0, c, 0.0,
+            0.0, 0.0, 0.0, 1.0,
         )
     }
 
+    #[rustfmt::skip]
     pub fn rotate_z(t: f32) -> Self {
         let c = t.cos();
         let s = t.sin();
 
         Self::from_data(
-            c, -s, 0.0, 0.0, s, c, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+            c, -s, 0.0, 0.0,
+            s, c, 0.0, 0.0,
+            0.0, 0.0, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0,
         )
     }
 
+    #[rustfmt::skip]
     pub fn rotate(t: f32, a: Vec3) -> Self {
         let s = t.sin();
         let c = t.cos();
@@ -107,25 +124,14 @@ impl Mat4 {
         let ayaz = y * a.z();
 
         Self::from_data(
-            c + x * a.x(),
-            axay - s * a.z(),
-            axaz + s * a.y(),
-            0.0,
-            axay + s * a.z(),
-            c + y * a.y(),
-            ayaz - s * a.x(),
-            0.0,
-            axaz - s * a.y(),
-            ayaz + s * a.x(),
-            c + z * a.z(),
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            1.0,
+            c + x * a.x(), axay - s * a.z(), axaz + s * a.y(), 0.0,
+            axay + s * a.z(), c + y * a.y(), ayaz - s * a.x(), 0.0,
+            axaz - s * a.y(), ayaz + s * a.x(), c + z * a.z(), 0.0,
+            0.0, 0.0, 0.0, 1.0,
         )
     }
 
+    #[rustfmt::skip]
     pub fn rotation_from_quat(quat: Quat) -> Self {
         let x2 = quat.x() * quat.x();
         let y2 = quat.y() * quat.y();
@@ -139,64 +145,30 @@ impl Mat4 {
         let wz = quat.w() * quat.z();
 
         Self::from_data(
-            1.0 - 2.0 * (y2 + z2),
-            2.0 * (xy - wz),
-            2.0 * (xz + wy),
-            0.0,
-            2.0 * (xy + wz),
-            1.0 - 2.0 * (x2 + z2),
-            2.0 * (yz - wx),
-            0.0,
-            2.0 * (xz - wy),
-            2.0 * (yz + wx),
-            1.0 - 2.0 * (x2 + y2),
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            1.0,
+            1.0 - 2.0 * (y2 + z2), 2.0 * (xy - wz), 2.0 * (xz + wy), 0.0,
+            2.0 * (xy + wz), 1.0 - 2.0 * (x2 + z2), 2.0 * (yz - wx), 0.0,
+            2.0 * (xz - wy), 2.0 * (yz + wx), 1.0 - 2.0 * (x2 + y2), 0.0,
+            0.0, 0.0, 0.0, 1.0,
         )
     }
 
+    #[rustfmt::skip]
     pub fn scale(vec: Vec3) -> Self {
         Self::from_data(
-            vec.x(),
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            vec.y(),
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            vec.z(),
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            1.0,
+            vec.x(), 0.0, 0.0, 0.0,
+            0.0, vec.y(), 0.0, 0.0,
+            0.0, 0.0, vec.z(), 0.0,
+            0.0, 0.0, 0.0, 1.0,
         )
     }
 
+    #[rustfmt::skip]
     pub fn translate(vec: Vec3) -> Self {
         Self::from_data(
-            1.0,
-            0.0,
-            0.0,
-            vec.x(),
-            0.0,
-            1.0,
-            0.0,
-            vec.y(),
-            0.0,
-            0.0,
-            1.0,
-            vec.z(),
-            0.0,
-            0.0,
-            0.0,
-            1.0,
+            1.0, 0.0, 0.0, vec.x(),
+            0.0, 1.0, 0.0, vec.y(),
+            0.0, 0.0, 1.0, vec.z(),
+            0.0, 0.0, 0.0,1.0,
         )
     }
 }
@@ -209,30 +181,31 @@ impl std::ops::Mul<Mat4> for Mat4 {
         let row_1 = self.row(1);
         let row_2 = self.row(2);
         let row_3 = self.row(3);
+
         Self {
             data: [
                 Vec4::new(
                     row_0.dot(&rhs.col(0)),
-                    row_0.dot(&rhs.col(1)),
-                    row_0.dot(&rhs.col(2)),
-                    row_0.dot(&rhs.col(3)),
-                ),
-                Vec4::new(
                     row_1.dot(&rhs.col(0)),
-                    row_1.dot(&rhs.col(1)),
-                    row_1.dot(&rhs.col(2)),
-                    row_1.dot(&rhs.col(3)),
-                ),
-                Vec4::new(
                     row_2.dot(&rhs.col(0)),
-                    row_2.dot(&rhs.col(1)),
-                    row_2.dot(&rhs.col(2)),
-                    row_2.dot(&rhs.col(3)),
+                    row_3.dot(&rhs.col(0)),
                 ),
                 Vec4::new(
-                    row_3.dot(&rhs.col(0)),
+                    row_0.dot(&rhs.col(1)),
+                    row_1.dot(&rhs.col(1)),
+                    row_2.dot(&rhs.col(1)),
                     row_3.dot(&rhs.col(1)),
+                ),
+                Vec4::new(
+                    row_0.dot(&rhs.col(2)),
+                    row_1.dot(&rhs.col(2)),
+                    row_2.dot(&rhs.col(2)),
                     row_3.dot(&rhs.col(2)),
+                ),
+                Vec4::new(
+                    row_0.dot(&rhs.col(3)),
+                    row_1.dot(&rhs.col(3)),
+                    row_2.dot(&rhs.col(3)),
                     row_3.dot(&rhs.col(3)),
                 ),
             ],
