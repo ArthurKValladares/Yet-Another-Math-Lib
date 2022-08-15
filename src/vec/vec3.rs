@@ -3,8 +3,7 @@ use crate::point::{Point2D, Point3D};
 use super::Vec2;
 
 #[repr(C)]
-#[derive(Debug, Default, Copy, Clone, PartialEq)]
-#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
+#[derive(Debug, Default, Copy, Clone, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Vec3 {
     data: [f32; 3],
 }
