@@ -8,28 +8,18 @@ use crate::{
 /// Column-major
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 pub struct Mat4 {
     data: [Vec4; 4],
 }
 
 impl Mat4 {
+    #[rustfmt::skip]
     pub fn from_data(
-        n00: f32,
-        n01: f32,
-        n02: f32,
-        n03: f32,
-        n10: f32,
-        n11: f32,
-        n12: f32,
-        n13: f32,
-        n20: f32,
-        n21: f32,
-        n22: f32,
-        n23: f32,
-        n30: f32,
-        n31: f32,
-        n32: f32,
-        n33: f32,
+        n00: f32, n01: f32, n02: f32, n03: f32,
+        n10: f32, n11: f32, n12: f32, n13: f32,
+        n20: f32, n21: f32, n22: f32, n23: f32,
+        n30: f32, n31: f32, n32: f32, n33: f32,
     ) -> Self {
         Self {
             data: [

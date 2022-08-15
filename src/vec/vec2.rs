@@ -1,5 +1,6 @@
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 pub struct Vec2 {
     data: [f32; 2],
 }

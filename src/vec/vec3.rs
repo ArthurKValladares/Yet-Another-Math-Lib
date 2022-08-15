@@ -4,6 +4,7 @@ use super::Vec2;
 
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 pub struct Vec3 {
     data: [f32; 3],
 }
