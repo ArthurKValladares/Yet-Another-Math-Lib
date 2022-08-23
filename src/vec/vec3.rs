@@ -1,9 +1,9 @@
-use crate::point::{Point2D, Point3D};
-
 use super::Vec2;
+use crate::point::{Point2D, Point3D};
+use rkyv::{Archive, Deserialize, Serialize};
 
 #[repr(C)]
-#[derive(Debug, Default, Copy, Clone, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Debug, Default, Copy, Clone, PartialEq, Archive, Deserialize, Serialize)]
 pub struct Vec3 {
     data: [f32; 3],
 }

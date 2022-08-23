@@ -1,5 +1,7 @@
+use rkyv::{Archive, Deserialize, Serialize};
+
 #[repr(C)]
-#[derive(Debug, Default, Copy, Clone, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Debug, Default, Copy, Clone, PartialEq, Archive, Deserialize, Serialize)]
 pub struct Vec2 {
     data: [f32; 2],
 }
