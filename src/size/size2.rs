@@ -1,12 +1,23 @@
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
-pub struct Size2D {
-    pub width: f32,
-    pub height: f32,
+pub struct Size2D<N: num::Num + Copy> {
+    width: N,
+    height: N,
 }
 
-impl Size2D {
-    pub fn new(width: f32, height: f32) -> Self {
+impl<N> Size2D<N>
+where
+    N: num::Num + Copy,
+{
+    pub fn new(width: N, height: N) -> Self {
         Self { width, height }
+    }
+
+    pub fn width(&self) -> N {
+        self.width
+    }
+
+    pub fn height(&self) -> N {
+        self.height
     }
 }

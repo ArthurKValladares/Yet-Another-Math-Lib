@@ -94,16 +94,16 @@ impl From<Vec2> for Vec3 {
     }
 }
 
-impl From<Point2D> for Vec3 {
-    fn from(point: Point2D) -> Self {
+impl From<Point2D<f32>> for Vec3 {
+    fn from(point: Point2D<f32>) -> Self {
         Self {
             data: [point.x(), point.y(), 0.0],
         }
     }
 }
 
-impl From<Point3D> for Vec3 {
-    fn from(point: Point3D) -> Self {
+impl From<Point3D<f32>> for Vec3 {
+    fn from(point: Point3D<f32>) -> Self {
         Self {
             data: [point.x(), point.y(), point.z()],
         }
