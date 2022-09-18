@@ -62,4 +62,12 @@ where
     pub fn bottom_right(&self) -> Point2D<N> {
         Point2D::new(self.right, self.bottom)
     }
+
+    pub fn width(&self) -> N {
+        self.right - self.left
+    }
+
+    pub fn height(&self) -> N {
+        self.bottom - self.top
+    }
 }
