@@ -35,7 +35,7 @@ where
         Self::from_top_right_bottom_left(N::zero(), size.width(), size.height(), N::zero())
     }
 
-    pub fn from_with_height(width: N, height: N) -> Self {
+    pub fn from_width_height(width: N, height: N) -> Self {
         Self::from_size(Size2D::new(width, height))
     }
 
