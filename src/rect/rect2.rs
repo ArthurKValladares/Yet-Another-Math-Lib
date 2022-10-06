@@ -31,6 +31,10 @@ where
         )
     }
 
+    pub fn from_size(size: Size2D<N>) -> Self {
+        Self::from_top_right_bottom_left(N::zero(), size.width(), size.height(), N::zero())
+    }
+
     pub fn top(&self) -> N {
         self.top
     }
