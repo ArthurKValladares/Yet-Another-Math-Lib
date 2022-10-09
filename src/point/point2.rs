@@ -8,6 +8,12 @@ impl<N> Point2D<N>
 where
     N: num::Num + Copy,
 {
+    pub fn zero() -> Self {
+        Self {
+            data: [N::zero(), N::zero()],
+        }
+    }
+
     pub fn new(x: N, y: N) -> Self {
         Self { data: [x, y] }
     }
