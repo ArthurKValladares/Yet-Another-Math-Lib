@@ -23,6 +23,14 @@ where
         Self::from_size(Size2D::new(width, height))
     }
 
+    pub fn offset(&self) -> Point2D<N> {
+        self.offset
+    }
+
+    pub fn size(&self) -> Size2D<N> {
+        self.size
+    }
+
     pub fn width(&self) -> N {
         self.size.width()
     }
