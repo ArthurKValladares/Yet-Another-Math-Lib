@@ -25,8 +25,4 @@ where
     pub fn y(&self) -> N {
         self.data[1]
     }
-
-    pub fn as_f32(&self) -> Point2D<f32> {
-        Point2D::<f32>::new(self.x() as f32, self.y() as f32)
-    }
 }
