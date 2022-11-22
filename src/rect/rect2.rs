@@ -39,4 +39,8 @@ where
     pub fn height(&self) -> M {
         self.size.height()
     }
+
+    pub fn as_f32(&self) -> Rect2D<f32, f32> {
+        Rect2D::<f32, f32>::from_offset_and_size(self.offset().as_f32(), self.size().as_f32())
+    }
 }

@@ -20,4 +20,8 @@ where
     pub fn height(&self) -> N {
         self.height
     }
+
+    pub fn as_f32(&self) -> Size2D<f32> {
+        Size2D::<f32>::new(self.width().as_f32(), self.height().as_f32())
+    }
 }

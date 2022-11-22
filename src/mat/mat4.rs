@@ -216,6 +216,17 @@ impl From<[[f32; 4]; 4]> for Mat4 {
     }
 }
 
+impl From<Mat4> for [[f32; 4]; 4] {
+    fn from(mat: Mat4) -> Self {
+        [
+            mat.data[0].into(),
+            mat.data[1].into(),
+            mat.data[2].into(),
+            mat.data[3].into(),
+        ]
+    }
+}
+
 impl Display for Mat4 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let row_0 = self.row(0);
