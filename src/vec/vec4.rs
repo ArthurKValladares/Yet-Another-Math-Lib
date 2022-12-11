@@ -170,7 +170,7 @@ impl From<Vec4> for [f32; 4] {
 impl From<Vec2> for Vec4 {
     fn from(vec: Vec2) -> Self {
         Self {
-            data: [vec.x(), vec.y(), 0.0, 0.0],
+            data: [vec.x, vec.y, 0.0, 0.0],
         }
     }
 }
