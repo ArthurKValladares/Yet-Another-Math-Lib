@@ -101,6 +101,8 @@ impl Mat4 {
 
     #[rustfmt::skip]
     pub fn rotate(t: f32, a: Vec3) -> Self {
+        let a = a.normalized();
+        
         let s = t.sin();
         let c = t.cos();
         let d = 1.0 - c;
