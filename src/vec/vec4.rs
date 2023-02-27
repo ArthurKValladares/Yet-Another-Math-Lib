@@ -1,8 +1,8 @@
 use super::{Vec2, Vec3};
-use rkyv::{Archive, Deserialize, Serialize};
+use serde::Deserialize;
 
 #[repr(C)]
-#[derive(Debug, Default, Copy, Clone, PartialEq, Archive, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Default, Copy, Clone, PartialEq)]
 pub struct Vec4 {
     data: [f32; 4],
 }

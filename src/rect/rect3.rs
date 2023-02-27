@@ -1,7 +1,8 @@
 use crate::{point::Point3D, size::Size2D};
+use serde::Deserialize;
 
 #[repr(C)]
-#[derive(Debug, Default, Copy, Clone, PartialEq)]
+#[derive(Debug, Deserialize, Default, Copy, Clone, PartialEq)]
 pub struct Rect3D<N: num::Num + Copy> {
     top: N,
     right: N,

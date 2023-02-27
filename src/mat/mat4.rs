@@ -1,5 +1,5 @@
-use rkyv::{Archive, Deserialize, Serialize};
 use std::fmt::Display;
+use serde::Deserialize;
 
 use crate::{
     quat::Quat,
@@ -8,7 +8,7 @@ use crate::{
 
 /// Column-major
 #[repr(C)]
-#[derive(Debug, Default, Copy, Clone, PartialEq, Archive, Deserialize, Serialize)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct Mat4 {
     data: [Vec4; 4],
 }

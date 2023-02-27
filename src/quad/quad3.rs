@@ -1,5 +1,7 @@
 use crate::{point::Point3D, size::Size2D};
+use serde::Deserialize;
 
+#[derive(Debug, Deserialize)]
 pub struct Quad3D<N: num::Num + Copy> {
     top: N,
     right: N,

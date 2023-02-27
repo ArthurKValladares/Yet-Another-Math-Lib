@@ -1,5 +1,7 @@
+use serde::Deserialize;
+
 #[repr(C)]
-#[derive(Debug, Default, Copy, Clone, PartialEq)]
+#[derive(Debug, Deserialize, Default, Copy, Clone, PartialEq)]
 pub struct Size2D<N: num::Num + Copy> {
     width: N,
     height: N,

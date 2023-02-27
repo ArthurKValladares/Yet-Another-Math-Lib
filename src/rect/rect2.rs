@@ -1,7 +1,8 @@
 use crate::{point::Point2D, size::Size2D};
+use serde::Deserialize;
 
 #[repr(C)]
-#[derive(Debug, Default, Copy, Clone, PartialEq)]
+#[derive(Debug, Deserialize, Default, Copy, Clone, PartialEq)]
 pub struct Rect2D<N: num::Num + Copy, M: num::Num + Copy> {
     offset: Point2D<N>,
     size: Size2D<M>,

@@ -1,7 +1,8 @@
 use crate::vec::Vec3;
+use serde::Deserialize;
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Deserialize, Copy, Clone, PartialEq)]
 pub struct Quat {
     data: [f32; 4],
 }
