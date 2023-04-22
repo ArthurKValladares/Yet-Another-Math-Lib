@@ -1,5 +1,7 @@
 use serde::Deserialize;
 
+use crate::vec::Vec3;
+
 #[repr(C)]
 #[derive(Debug, Deserialize, Default, Copy, Clone, PartialEq)]
 pub struct Point3D<N: num::Num + Copy> {

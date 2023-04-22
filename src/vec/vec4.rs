@@ -68,6 +68,10 @@ impl Vec4 {
         *self / self.magnitude()
     }
 
+    pub fn is_normal(&self) -> bool {
+        self.magnitude() == 1.0
+    }
+
     pub fn distance(&self, rhs: Self) -> f32 {
         (*self - rhs).magnitude()
     }
