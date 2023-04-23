@@ -12,6 +12,30 @@ impl Quat {
         Self { data: [x, y, z, w] }
     }
 
+    pub fn from_axis_angle(axis: Vec3, angle: f32) -> Self {
+        let half_angle = angle / 2.0;
+        let sin_half_angle = half_angle.sin();
+        let cos_half_angle = half_angle.cos();
+
+        let x = axis.x() * sin_half_angle;
+        let y = axis.y() * sin_half_angle;
+        let z = axis.z() * sin_half_angle;
+        let w = cos_half_angle;
+
+        Self { data: [x, y, z, w] }
+    }
+
+    pub fn rotate_vector(&self, vec: Vec3) -> Vec3 {
+        let as_quat = Self::from_parts(vec.x(), vec.y(), vec.z(), 0.0);
+        let rotated_as_quat = (*self * as_quat) * self.inverse();
+        debug_assert!(rotated_as_quat.w() == 0.0);
+        Vec3::new(
+            rotated_as_quat.x(),
+            rotated_as_quat.y(),
+            rotated_as_quat.z(),
+        )
+    }
+
     pub fn x(&self) -> f32 {
         self.data[0]
     }
@@ -26,6 +50,12 @@ impl Quat {
 
     pub fn w(&self) -> f32 {
         self.data[3]
+    }
+
+    pub fn inverse(self) -> Self {
+        Self {
+            data: [-self.x(), -self.y(), -self.z(), self.w()],
+        }
     }
 }
 
