@@ -8,16 +8,8 @@ pub struct Quat {
 }
 
 impl Quat {
-    pub fn from_axis_angle(axis: Vec3, angle: f32) -> Self {
-        let s = (angle / 2.0).sin();
-        Self {
-            data: [
-                axis.x() * s,
-                axis.y() * s,
-                axis.z() * s,
-                (angle / 2.0).cos(),
-            ],
-        }
+    pub fn from_parts(x: f32, y: f32, z: f32, w: f32) -> Self {
+        Self { data: [x, y, z, w] }
     }
 
     pub fn x(&self) -> f32 {
@@ -35,18 +27,27 @@ impl Quat {
     pub fn w(&self) -> f32 {
         self.data[3]
     }
-
-    pub fn rotate(&self, vec: Vec3) -> Vec3 {
-        let b = Vec3::new(self.x(), self.y(), self.z());
-        let b2 = b.magnitude_squared();
-        vec * (self.w() * self.w() - b2)
-            + b * (vec.dot(&b) * 2.0)
-            + b.cross(&vec) * (self.w() * 2.0)
-    }
 }
 
 impl From<[f32; 4]> for Quat {
     fn from(data: [f32; 4]) -> Self {
         Self { data }
+    }
+}
+
+impl std::ops::Mul<Quat> for Quat {
+    type Output = Self;
+
+    fn mul(self, rhs: Quat) -> Self::Output {
+        let q1 = self;
+        let q2 = rhs;
+        Self {
+            data: [
+                q1.x() * q2.w() + q1.y() * q2.z() - q1.z() * q2.y() + q1.w() * q2.x(),
+                -q1.x() * q2.z() + q1.y() * q2.w() + q1.z() * q2.x() + q1.w() * q2.y(),
+                q1.x() * q2.y() - q1.y() * q2.x() - q1.z() * q2.w() + q1.w() * q2.z(),
+                -q1.x() * q2.x() - q1.y() * q2.y() - q1.z() * q2.z() + q1.w() * q2.w(),
+            ],
+        }
     }
 }
