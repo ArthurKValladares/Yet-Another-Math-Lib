@@ -60,7 +60,7 @@ impl Quat {
     }
 
     pub fn magnitude_squared(&self) -> f32 {
-        self.x() * self.x() + self.y() * self.y() + self.z() * self.z()
+        self.x() * self.x() + self.y() * self.y() + self.z() * self.z() + self.w() * self.w()
     }
 
     pub fn magnitude(&self) -> f32 {
