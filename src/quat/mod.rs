@@ -25,17 +25,6 @@ impl Quat {
         Self { data: [x, y, z, w] }
     }
 
-    pub fn rotate_vector(&self, vec: Vec3) -> Vec3 {
-        let as_quat = Self::from_parts(vec.x(), vec.y(), vec.z(), 0.0);
-        let rotated_as_quat = (*self * as_quat) * self.inverse();
-        debug_assert!(rotated_as_quat.w() == 0.0);
-        Vec3::new(
-            rotated_as_quat.x(),
-            rotated_as_quat.y(),
-            rotated_as_quat.z(),
-        )
-    }
-
     pub fn x(&self) -> f32 {
         self.data[0]
     }
@@ -50,6 +39,36 @@ impl Quat {
 
     pub fn w(&self) -> f32 {
         self.data[3]
+    }
+
+    pub fn vector_component(&self) -> Vec3 {
+        // TODO: mem::transmute
+        Vec3::new(self.x(), self.y(), self.z())
+    }
+
+    pub fn scalar_component(&self) -> f32 {
+        self.w()
+    }
+
+    pub fn rotate_vector(&self, vec: Vec3) -> Vec3 {
+        let b = self.vector_component();
+        let b2 = b.magnitude_squared();
+
+        let q = self.normalized();
+
+        vec * (q.w() * q.w() - b2) + b * (vec.dot(&b) * 2.0) + b.cross(&vec) * (q.w() * 2.0)
+    }
+
+    pub fn magnitude_squared(&self) -> f32 {
+        self.x() * self.x() + self.y() * self.y() + self.z() * self.z()
+    }
+
+    pub fn magnitude(&self) -> f32 {
+        self.magnitude_squared().sqrt()
+    }
+
+    pub fn normalized(&self) -> Quat {
+        *self / self.magnitude()
     }
 
     pub fn inverse(self) -> Self {
@@ -73,10 +92,40 @@ impl std::ops::Mul<Quat> for Quat {
         let q2 = rhs;
         Self {
             data: [
-                q1.x() * q2.w() + q1.y() * q2.z() - q1.z() * q2.y() + q1.w() * q2.x(),
-                -q1.x() * q2.z() + q1.y() * q2.w() + q1.z() * q2.x() + q1.w() * q2.y(),
-                q1.x() * q2.y() - q1.y() * q2.x() - q1.z() * q2.w() + q1.w() * q2.z(),
-                -q1.x() * q2.x() - q1.y() * q2.y() - q1.z() * q2.z() + q1.w() * q2.w(),
+                q1.w() * q2.x() + q1.x() * q2.w() + q1.y() * q2.z() - q1.z() * q2.y(),
+                q1.w() * q2.y() - q1.x() * q2.z() + q1.y() * q2.w() + q1.z() * q2.x(),
+                q1.w() * q2.z() + q1.x() * q2.y() - q1.y() * q2.z() + q1.z() * q2.w(),
+                q1.w() * q2.w() - q1.x() * q2.x() - q1.y() * q2.y() - q1.z() * q2.z(),
+            ],
+        }
+    }
+}
+
+impl std::ops::Mul<f32> for Quat {
+    type Output = Self;
+
+    fn mul(self, rhs: f32) -> Self::Output {
+        Self {
+            data: [
+                self.x() * rhs,
+                self.y() * rhs,
+                self.z() * rhs,
+                self.w() * rhs,
+            ],
+        }
+    }
+}
+
+impl std::ops::Div<f32> for Quat {
+    type Output = Self;
+
+    fn div(self, rhs: f32) -> Self::Output {
+        Self {
+            data: [
+                self.x() / rhs,
+                self.y() / rhs,
+                self.z() / rhs,
+                self.w() / rhs,
             ],
         }
     }
