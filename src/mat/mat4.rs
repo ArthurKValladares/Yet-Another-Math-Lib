@@ -215,13 +215,12 @@ impl std::ops::Mul<Vec4> for Mat4 {
         let row_3 = self.row(3);
 
 
-                Vec4::new(
-                    row_0.dot(&rhs),
-                    row_1.dot(&rhs),
-                    row_2.dot(&rhs),
-                    row_3.dot(&rhs),
-                )
-        
+        Vec4::new(
+            row_0.dot(&rhs),
+            row_1.dot(&rhs),
+            row_2.dot(&rhs),
+            row_3.dot(&rhs),
+        )
     }
 }
 
