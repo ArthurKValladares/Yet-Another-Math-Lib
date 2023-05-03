@@ -205,6 +205,25 @@ impl std::ops::Mul<Mat4> for Mat4 {
     }
 }
 
+impl std::ops::Mul<Vec4> for Mat4 {
+    type Output = Vec4;
+
+    fn mul(self, rhs: Vec4) -> Self::Output {
+        let row_0 = self.row(0);
+        let row_1 = self.row(1);
+        let row_2 = self.row(2);
+        let row_3 = self.row(3);
+
+
+        Vec4::new(
+            row_0.dot(&rhs),
+            row_1.dot(&rhs),
+            row_2.dot(&rhs),
+            row_3.dot(&rhs),
+        )
+    }
+}
+
 impl From<[[f32; 4]; 4]> for Mat4 {
     fn from(data: [[f32; 4]; 4]) -> Self {
         Self {
