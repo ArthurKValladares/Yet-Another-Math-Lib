@@ -41,3 +41,13 @@ where
         self.size.height()
     }
 }
+
+impl<N, M> From<Size2D<M>> for Rect2D<N, M>
+where
+    N: num::Num + Copy,
+    M: num::Num + Copy,
+{
+    fn from(size: Size2D<M>) -> Self {
+        Self::from_offset_and_size(Point2D::zero(), size)
+    }
+}
